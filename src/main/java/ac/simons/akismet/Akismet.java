@@ -59,10 +59,11 @@ public class Akismet {
 	/** A logger */
 	private final Logger logger = LoggerFactory.getLogger(Akismet.class);
 	
+	private final HttpClient httpClient;
+	
 	private String apiEndpoint = "rest.akismet.com";
 	private String apiVersion = "1.1";
-	
-	private HttpClient httpClient;
+		
 	/** The API key being verified for use with the API */
 	private String apikey;
 	/**
@@ -72,6 +73,10 @@ public class Akismet {
 	 */
 	private String apiConsumer;	
 	
+	public Akismet(HttpClient httpClient) {	
+		this.httpClient = httpClient;
+	}
+
 	public String getUserAgent() {
 		return userAgent;
 	}
@@ -94,10 +99,6 @@ public class Akismet {
 
 	public HttpClient getHttpClient() {
 		return httpClient;
-	}
-
-	public void setHttpClient(HttpClient httpClient) {
-		this.httpClient = httpClient;
 	}
 
 	public String getApikey() {

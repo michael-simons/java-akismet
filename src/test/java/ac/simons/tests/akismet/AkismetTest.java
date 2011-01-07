@@ -60,8 +60,7 @@ public class AkismetTest {
 	
 	@Test
 	public void verify() throws AkismetException {
-		final Akismet akismet = new Akismet();
-		akismet.setHttpClient(new DefaultHttpClient());
+		final Akismet akismet = new Akismet(new DefaultHttpClient());		
 		
 		akismet.setApikey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);		
@@ -79,8 +78,7 @@ public class AkismetTest {
 	
 	@Test
 	public void checkComment() throws AkismetException {
-		final Akismet akismet = new Akismet();
-		akismet.setHttpClient(new DefaultHttpClient());		
+		final Akismet akismet = new Akismet(new DefaultHttpClient());		
 		akismet.setApikey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);
 		
@@ -109,8 +107,7 @@ public class AkismetTest {
 	
 	@Test
 	public void submitSpam() throws AkismetException {
-		final Akismet akismet = new Akismet();
-		akismet.setHttpClient(new DefaultHttpClient());		
+		final Akismet akismet = new Akismet(new DefaultHttpClient());		
 		akismet.setApikey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);
 		
@@ -128,8 +125,7 @@ public class AkismetTest {
 	
 	@Test
 	public void submitHam() throws AkismetException {
-		final Akismet akismet = new Akismet();
-		akismet.setHttpClient(new DefaultHttpClient());		
+		final Akismet akismet = new Akismet(new DefaultHttpClient());		
 		akismet.setApikey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);
 		
