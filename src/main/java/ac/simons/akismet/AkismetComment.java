@@ -33,6 +33,8 @@
  */
 package ac.simons.akismet;
 
+import static ac.simons.utils.StringUtils.isBlank;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,16 +91,7 @@ public class AkismetComment implements Serializable {
 	private String commentContent;
 
 	private boolean areRequiredFieldsFilled() {
-		return !(b(this.getUserIp()) || b(this.getUserAgent()));
-	}
-	
-	/**
-	 * Checks wether the string s is blank (null or length 0)
-	 * @param s
-	 * @return
-	 */
-	private static boolean b(final String s) {
-		return s == null || s.length() == 0;
+		return !(isBlank(this.getUserIp()) || isBlank(this.getUserAgent()));
 	}
 	
 	/**
@@ -116,19 +109,19 @@ public class AkismetComment implements Serializable {
 		p.add(new BasicNameValuePair("user_ip", this.getUserIp()));
 		p.add(new BasicNameValuePair("userAgent", this.getUserAgent()));
 		
-		if(!b(this.getReferrer()))
+		if(!isBlank(this.getReferrer()))
 			p.add(new BasicNameValuePair("referrer", this.getReferrer()));
-		if(!b(this.getPermalink()))
+		if(!isBlank(this.getPermalink()))
 			p.add(new BasicNameValuePair("permalink", this.getPermalink()));
-		if(!b(this.getCommentType()))
+		if(!isBlank(this.getCommentType()))
 			p.add(new BasicNameValuePair("comment_type", this.getCommentType()));
-		if(!b(this.getCommentAuthor()))
+		if(!isBlank(this.getCommentAuthor()))
 			p.add(new BasicNameValuePair("comment_author", this.getCommentAuthor()));
-		if(!b(this.getCommentAuthorEmail()))
+		if(!isBlank(this.getCommentAuthorEmail()))
 			p.add(new BasicNameValuePair("comment_author_email", this.getCommentAuthorEmail()));
-		if(!b(this.getCommentAuthorUrl()))
+		if(!isBlank(this.getCommentAuthorUrl()))
 			p.add(new BasicNameValuePair("comment_author_url", this.getCommentAuthorUrl()));
-		if(!b(this.getCommentContent()))
+		if(!isBlank(this.getCommentContent()))
 			p.add(new BasicNameValuePair("comment_content", this.getCommentContent()));
 		
 		return new UrlEncodedFormEntity(p, "UTF-8");
