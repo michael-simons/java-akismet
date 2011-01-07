@@ -65,7 +65,7 @@ public class Akismet {
 	private String apiVersion = "1.1";
 		
 	/** The API key being verified for use with the API */
-	private String apikey;
+	private String apiKey;
 	/**
 	 * A.k.a "blog" 
 	 * The front page or home URL of the instance making the request. 
@@ -101,12 +101,12 @@ public class Akismet {
 		return httpClient;
 	}
 
-	public String getApikey() {
-		return apikey;
+	public String getApiKey() {
+		return apiKey;
 	}
 
-	public void setApikey(String apikey) {
-		this.apikey = apikey;
+	public void setApiKey(String apikey) {
+		this.apiKey = apikey;
 	}
 
 	public String getApiConsumer() {
@@ -125,7 +125,7 @@ public class Akismet {
 	}
 
 	private HttpResponse callAkismet(final String function, final AkismetComment comment) throws Exception {
-		final HttpPost request = newHttpPostRequest(String.format("http://%s.%s/%s/%s", this.getApikey(), this.getApiEndpoint(), this.getApiVersion(), function));
+		final HttpPost request = newHttpPostRequest(String.format("http://%s.%s/%s/%s", this.getApiKey(), this.getApiEndpoint(), this.getApiVersion(), function));
 		request.setEntity(comment.toEntity(this.getApiConsumer()));
 		return this.getHttpClient().execute(request);
 	}
@@ -140,7 +140,7 @@ public class Akismet {
 		try {
 			final HttpPost request = newHttpPostRequest(String.format("http://%s/%s/verify-key", this.getApiEndpoint(), this.getApiVersion()));			
 			final List<NameValuePair> p = new ArrayList<NameValuePair>();
-			p.add(new BasicNameValuePair("key", this.getApikey()));
+			p.add(new BasicNameValuePair("key", this.getApiKey()));
 			p.add(new BasicNameValuePair("blog", this.getApiConsumer()));			
 			request.setEntity(new UrlEncodedFormEntity(p, "UTF-8"));
 			final HttpResponse response = this.getHttpClient().execute(request);

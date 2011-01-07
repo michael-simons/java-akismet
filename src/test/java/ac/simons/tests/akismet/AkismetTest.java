@@ -62,16 +62,16 @@ public class AkismetTest {
 	public void verify() throws AkismetException {
 		final Akismet akismet = new Akismet(new DefaultHttpClient());		
 		
-		akismet.setApikey(validApiKey);		
+		akismet.setApiKey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);		
 		Assert.assertTrue(akismet.verifyKey());
 		
-		akismet.setApikey("123test");		
+		akismet.setApiKey("123test");		
 		akismet.setApiConsumer("http://test.com");
 		Assert.assertFalse(akismet.verifyKey());
 		
 		akismet.setApiEndpoint("test.com");
-		akismet.setApikey("123test");		
+		akismet.setApiKey("123test");		
 		akismet.setApiConsumer("http://test.com");
 		Assert.assertFalse(akismet.verifyKey());
 	}
@@ -79,7 +79,7 @@ public class AkismetTest {
 	@Test
 	public void checkComment() throws AkismetException {
 		final Akismet akismet = new Akismet(new DefaultHttpClient());		
-		akismet.setApikey(validApiKey);		
+		akismet.setApiKey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);
 		
 		AkismetComment comment = new AkismetComment();
@@ -108,7 +108,7 @@ public class AkismetTest {
 	@Test
 	public void submitSpam() throws AkismetException {
 		final Akismet akismet = new Akismet(new DefaultHttpClient());		
-		akismet.setApikey(validApiKey);		
+		akismet.setApiKey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);
 		
 		AkismetComment comment = new AkismetComment();
@@ -126,7 +126,7 @@ public class AkismetTest {
 	@Test
 	public void submitHam() throws AkismetException {
 		final Akismet akismet = new Akismet(new DefaultHttpClient());		
-		akismet.setApikey(validApiKey);		
+		akismet.setApiKey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);
 		
 		AkismetComment comment = new AkismetComment();
