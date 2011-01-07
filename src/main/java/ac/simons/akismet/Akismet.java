@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Akismet {
 	/** The default user agent */
-	private final String userAgent = String.format("Java/%s java-akismet/0.0.1", System.getProperty("java.version"));
+	private final String userAgent = String.format("Java/%s java-akismet/0.0.2", System.getProperty("java.version"));
 	/** The default content type */
 	private final String contentType = "application/x-www-form-urlencoded; charset=utf-8";
 	/** A logger */
