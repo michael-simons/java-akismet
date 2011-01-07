@@ -1,0 +1,29 @@
+h1. A java client for akismet.com
+
+This is a client for the "akismet":http://akismet.com/ spam checker that supports all "api methods":http://akismet.com/development/api.
+
+The project is a ready to use configured maven/eclipse project, dependencies are "HttpComponents 4.x":http://hc.apache.org and slf4j.
+
+h2. Deployment
+
+Run maven with the following argument added:
+
+<pre>
+mvn -DargLine="-DakismetApiKey=YOUR_API_KEY -DakismetConsumer=YOUR_SITE" install
+</pre>
+
+h2. Usage
+
+h3. In a Spring 3.x application
+
+The the httpClient reference must an instance of org.apache.http.client.HttpClient.
+
+<pre><code>
+<bean name="akismet" class="ac.simons.akismet.Akismet">
+	<constructor-arg name="httpClient" ref="httpClient" />
+	<!-- The api key from akismet.com --> 
+	<property name="apiKey" ref="YOUR_API_KEY" />
+	<!-- The name of your blog or site -->
+	<property name="apiConsumer" ref="YOUR_SITE" />
+</bean>
+</code></pre>
