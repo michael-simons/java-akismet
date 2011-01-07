@@ -189,7 +189,20 @@ public class Akismet {
 	 * @throws AkismetException
 	 */
 	public boolean submitSpam(final AkismetComment comment) throws AkismetException {
-		return false;
+		boolean rv = false;
+		try {
+			final HttpResponse response = this.callAkismet("submit-spam", comment);
+			final String body = EntityUtils.toString(response.getEntity());
+			if(response.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
+				logger.warn(String.format("Something bad happened while submitting Spam: %s", response.getStatusLine().getReasonPhrase()));
+			else {
+				logger.debug(String.format("Spam successfully submitted, response was '%s'", body));
+				rv = true;
+			}
+		} catch(Exception e) {
+			throw new AkismetException(e);
+		}
+		return rv;
 	}
 	
 	/**
@@ -200,6 +213,19 @@ public class Akismet {
 	 * @throws AkismetException
 	 */
 	public boolean submitHam(final AkismetComment comment) throws AkismetException {
-		return false;
+		boolean rv = false;
+		try {
+			final HttpResponse response = this.callAkismet("submit-ham", comment);
+			final String body = EntityUtils.toString(response.getEntity());
+			if(response.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
+				logger.warn(String.format("Something bad happened while submitting ham: %s", response.getStatusLine().getReasonPhrase()));
+			else {
+				logger.debug(String.format("Ham successfully submitted, response was '%s'", body));
+				rv = true;
+			}
+		} catch(Exception e) {
+			throw new AkismetException(e);
+		}
+		return rv;
 	}
 }

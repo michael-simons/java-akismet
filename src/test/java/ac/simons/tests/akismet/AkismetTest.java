@@ -106,4 +106,42 @@ public class AkismetTest {
 		comment.setCommentContent("Scharfes Outfit :D");
 		Assert.assertTrue(akismet.commentCheck(comment));		
 	}
+	
+	@Test
+	public void submitSpam() throws AkismetException {
+		final Akismet akismet = new Akismet();
+		akismet.setHttpClient(new DefaultHttpClient());		
+		akismet.setApikey(validApiKey);		
+		akismet.setApiConsumer(validApiConsumer);
+		
+		AkismetComment comment = new AkismetComment();
+		comment.setUserIp("201.45.14.18");
+		comment.setUserAgent("UserAgent");
+		comment.setPermalink("http://dailyfratze.de/app/news/show/256");
+		comment.setCommentType("comment");
+		comment.setCommentAuthor("yohlctfwnem");
+		comment.setCommentAuthorEmail("rcphwp@nvwcjd.com");
+		comment.setCommentAuthorUrl("http://dzhnjufiaxlf.com/");
+		comment.setCommentContent("yKWClC  <a href=\"http://thmntcyecyjz.com/\">thmntcyecyjz</a>, [url=http://bfvheegcdlmi.com/]bfvheegcdlmi[/url], [link=http://pizhqyywdhzu.com/]pizhqyywdhzu[/link], http://gowqkgqrfpag.com/");
+		Assert.assertTrue(akismet.submitSpam(comment));				
+	}
+	
+	@Test
+	public void submitHam() throws AkismetException {
+		final Akismet akismet = new Akismet();
+		akismet.setHttpClient(new DefaultHttpClient());		
+		akismet.setApikey(validApiKey);		
+		akismet.setApiConsumer(validApiConsumer);
+		
+		AkismetComment comment = new AkismetComment();
+		comment.setUserIp("80.138.52.114");
+		comment.setUserAgent("Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.10 (KHTML, like Gecko) Chrome/8.0.552.224 Safari/534.10");
+		comment.setPermalink("http://dailyfratze.de/marie/2011/1/3");
+		comment.setCommentType("comment");
+		comment.setCommentAuthor("Michael");
+		comment.setCommentAuthorEmail("misi@planet-punk.de");
+		comment.setCommentAuthorUrl("http://planet-punk.de");
+		comment.setCommentContent("Scharfes Outfit :D");
+		Assert.assertTrue(akismet.submitHam(comment));				
+	}
 }
