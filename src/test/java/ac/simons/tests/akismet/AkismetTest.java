@@ -39,6 +39,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.junit.Test;
 
 import ac.simons.akismet.Akismet;
+import ac.simons.akismet.AkismetComment;
 import ac.simons.akismet.AkismetException;
 
 /**
@@ -74,5 +75,35 @@ public class AkismetTest {
 		akismet.setApikey("123test");		
 		akismet.setApiConsumer("http://test.com");
 		Assert.assertFalse(akismet.verifyKey());
+	}
+	
+	@Test
+	public void checkComment() throws AkismetException {
+		final Akismet akismet = new Akismet();
+		akismet.setHttpClient(new DefaultHttpClient());		
+		akismet.setApikey(validApiKey);		
+		akismet.setApiConsumer(validApiConsumer);
+		
+		AkismetComment comment = new AkismetComment();
+		comment.setUserIp("80.138.52.114");
+		comment.setUserAgent("Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.10 (KHTML, like Gecko) Chrome/8.0.552.224 Safari/534.10");
+		comment.setPermalink("http://dailyfratze.de/marie/2011/1/3");
+		comment.setCommentType("comment");
+		comment.setCommentAuthor("Michael");
+		comment.setCommentAuthorEmail("misi@planet-punk.de");
+		comment.setCommentAuthorUrl("http://planet-punk.de");
+		comment.setCommentContent("Scharfes Outfit :D");
+		Assert.assertFalse(akismet.commentCheck(comment));
+		
+		comment = new AkismetComment();
+		comment.setUserIp("80.138.52.114");
+		comment.setUserAgent("Mozilla/5.0 (Windows; U; Windows NT 6.1; de; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13");
+		comment.setPermalink("http://dailyfratze.de/marie/2011/1/3");
+		comment.setCommentType("comment");
+		comment.setCommentAuthor("viagra-test-123");
+		comment.setCommentAuthorEmail("viagra-test-123@test.com");
+		comment.setCommentAuthorUrl("http://test.com");
+		comment.setCommentContent("Scharfes Outfit :D");
+		Assert.assertTrue(akismet.commentCheck(comment));		
 	}
 }

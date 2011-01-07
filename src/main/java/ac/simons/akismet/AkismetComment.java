@@ -34,8 +34,14 @@
 package ac.simons.akismet;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
 
 /**
  * Represents a comment send to akismet for spam check. From the api:<br>
@@ -49,14 +55,7 @@ import javax.xml.bind.annotation.XmlElement;
  *
  */
 public class AkismetComment implements Serializable {	
-	private static final long serialVersionUID = -5782832268604549364L;
-
-	/** 
-	 * The front page or home URL of the instance making the request. For a blog
-	 * or wiki this would be the front page. Note: Must be a full URI, 
-	 * including http://. (required)
-	 */
-	private String blog;
+	private static final long serialVersionUID = -5782832268604549364L;	
 	
 	/** IP address of the comment submitter. (required) */
 	private String userIp;
@@ -89,15 +88,52 @@ public class AkismetComment implements Serializable {
 	/** The content that was submitted. */
 	private String commentContent;
 
-	@XmlElement(name="blog")
-	public String getBlog() {
-		return blog;
+	private boolean areRequiredFieldsFilled() {
+		return !(b(this.getUserIp()) || b(this.getUserAgent()));
 	}
-
-	public void setBlog(String blog) {
-		this.blog = blog;
+	
+	/**
+	 * Checks wether the string s is blank (null or length 0)
+	 * @param s
+	 * @return
+	 */
+	private static boolean b(final String s) {
+		return s == null || s.length() == 0;
 	}
-
+	
+	/**
+	 * Converts this comment to a HttpEntity to use in a akismet call
+	 * @return
+	 * @throws Exception
+	 */
+	public UrlEncodedFormEntity toEntity(final String apiConsumer) throws Exception {
+		final List<NameValuePair> p = new ArrayList<NameValuePair>();
+		
+		if(!areRequiredFieldsFilled())
+			throw new AkismetException("The fields blog, userIp and userAgent are required!");
+		
+		p.add(new BasicNameValuePair("blog", apiConsumer));
+		p.add(new BasicNameValuePair("user_ip", this.getUserIp()));
+		p.add(new BasicNameValuePair("userAgent", this.getUserAgent()));
+		
+		if(!b(this.getReferrer()))
+			p.add(new BasicNameValuePair("referrer", this.getReferrer()));
+		if(!b(this.getPermalink()))
+			p.add(new BasicNameValuePair("permalink", this.getPermalink()));
+		if(!b(this.getCommentType()))
+			p.add(new BasicNameValuePair("comment_type", this.getCommentType()));
+		if(!b(this.getCommentAuthor()))
+			p.add(new BasicNameValuePair("comment_author", this.getCommentAuthor()));
+		if(!b(this.getCommentAuthorEmail()))
+			p.add(new BasicNameValuePair("comment_author_email", this.getCommentAuthorEmail()));
+		if(!b(this.getCommentAuthorUrl()))
+			p.add(new BasicNameValuePair("comment_author_url", this.getCommentAuthorUrl()));
+		if(!b(this.getCommentContent()))
+			p.add(new BasicNameValuePair("comment_content", this.getCommentContent()));
+		
+		return new UrlEncodedFormEntity(p, "UTF-8");
+	}
+	
 	@XmlElement(name="user_ip")
 	public String getUserIp() {
 		return userIp;

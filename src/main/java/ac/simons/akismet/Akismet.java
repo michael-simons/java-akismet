@@ -35,7 +35,6 @@ package ac.simons.akismet;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -117,8 +116,17 @@ public class Akismet {
 		this.apiConsumer = apiConsumer;
 	}
 	
-	private void callAkismet(final String function, final Map<String, Object> arguments) {
-		// final HttpPost httpPost = new HttpPost(String.format("http://"));
+	private HttpPost newHttpPostRequest(final String uri) {
+		final HttpPost request = new HttpPost(uri);
+		request.setHeader("User-Agent", this.userAgent);
+		request.setHeader("Content-Type", this.contentType);
+		return request;
+	}
+
+	private HttpResponse callAkismet(final String function, final AkismetComment comment) throws Exception {
+		final HttpPost request = newHttpPostRequest(String.format("http://%s.%s/%s/%s", this.getApikey(), this.getApiEndpoint(), this.getApiVersion(), function));
+		request.setEntity(comment.toEntity(this.getApiConsumer()));
+		return this.getHttpClient().execute(request);
 	}
 
 	/**
@@ -129,18 +137,44 @@ public class Akismet {
 	public boolean verifyKey() throws AkismetException {
 		boolean rv = false;
 		try {
-			final HttpPost request = new HttpPost(String.format("http://%s/%s/verify-key", this.getApiEndpoint(), this.getApiVersion()));
-			request.setHeader("Content-Type", this.contentType);
+			final HttpPost request = newHttpPostRequest(String.format("http://%s/%s/verify-key", this.getApiEndpoint(), this.getApiVersion()));			
 			final List<NameValuePair> p = new ArrayList<NameValuePair>();
 			p.add(new BasicNameValuePair("key", this.getApikey()));
-			p.add(new BasicNameValuePair("blog", this.getApiConsumer()));
+			p.add(new BasicNameValuePair("blog", this.getApiConsumer()));			
 			request.setEntity(new UrlEncodedFormEntity(p, "UTF-8"));
 			final HttpResponse response = this.getHttpClient().execute(request);
 			final String body = EntityUtils.toString(response.getEntity());
 			if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
-				rv = body.equals("valid");
+				rv = body.trim().equals("valid");
 			else 
 				logger.warn(String.format("Something bad happened while verifying key, assuming key is invalid: %s", response.getStatusLine().getReasonPhrase()));			
+		} catch(Exception e) {
+			throw new AkismetException(e);
+		}
+		return rv;
+	}	
+	
+	/**
+	 * This is basically the core of everything. This call takes a number of arguments 
+	 * and characteristics about the submitted content and then returns a thumbs up or 
+	 * thumbs down.<br>
+	 * Almost everything is optional, but performance can drop dramatically if you 
+	 * exclude certain elements.<br>
+	 * I would recommend erring on the side of too much data, as everything is used as 
+	 * part of the Akismet signature.
+	 * @return True, if the comment is spam, false otherwise
+	 * @throws AkismetException
+	 */
+	public boolean commentCheck(final AkismetComment comment) throws AkismetException {
+		// When in doubt, assume that the comment is ham
+		boolean rv = false;
+		try {
+			final HttpResponse response = this.callAkismet("comment-check", comment);
+			final String body = EntityUtils.toString(response.getEntity());
+			if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
+				rv = body.trim().equals("true");
+			else 
+				logger.warn(String.format("Something bad happened while checking a comment, assuming comment is ham: %s", response.getStatusLine().getReasonPhrase()));
 		} catch(Exception e) {
 			throw new AkismetException(e);
 		}
@@ -148,18 +182,23 @@ public class Akismet {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * This call is for submitting comments that weren't marked 
+	 * as spam but should have been.
+	 * @param comment
+	 * @return True if the spam was successfully submitted.
 	 * @throws AkismetException
 	 */
-	public boolean commentCheck(final AkismetComment comment) throws AkismetException {
-		return false;
-	}
-	
 	public boolean submitSpam(final AkismetComment comment) throws AkismetException {
 		return false;
 	}
 	
+	/**
+	 * This call is intended for the marking of false positives, 
+	 * things that were incorrectly marked as spam.
+	 * @param comment
+	 * @return True if the ham was successfully submitted.
+	 * @throws AkismetException
+	 */
 	public boolean submitHam(final AkismetComment comment) throws AkismetException {
 		return false;
 	}
