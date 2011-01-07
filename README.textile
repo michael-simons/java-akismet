@@ -16,7 +16,7 @@ h2. Usage
 
 h3. In a Spring 3.x application
 
-The the httpClient reference must an instance of org.apache.http.client.HttpClient.
+The httpClient reference must be an instance of org.apache.http.client.HttpClient.
 
 <pre><code>
 <bean name="akismet" class="ac.simons.akismet.Akismet">
