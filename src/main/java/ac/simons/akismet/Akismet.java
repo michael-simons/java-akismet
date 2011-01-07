@@ -53,8 +53,11 @@ import org.slf4j.LoggerFactory;
  * @author Michael J. Simons
  */
 public class Akismet {
+	/** The default user agent */
 	private final String userAgent = String.format("Java/%s java-akismet/0.0.1", System.getProperty("java.version"));
-	/** a logger */
+	/** The default content type */
+	private final String contentType = "application/x-www-form-urlencoded; charset=utf-8";
+	/** A logger */
 	private final Logger logger = LoggerFactory.getLogger(Akismet.class);
 	
 	private String apiEndpoint = "rest.akismet.com";
@@ -118,11 +121,16 @@ public class Akismet {
 		// final HttpPost httpPost = new HttpPost(String.format("http://"));
 	}
 
+	/**
+	 * The key verification call should be made before beginning to use the service. It requires two variables, key and blog.
+	 * @return True if the key is valid. This is the one call that can be made without the API key subdomain.
+	 * @throws AkismetException
+	 */
 	public boolean verifyKey() throws AkismetException {
 		boolean rv = false;
 		try {
 			final HttpPost request = new HttpPost(String.format("http://%s/%s/verify-key", this.getApiEndpoint(), this.getApiVersion()));
-			request.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+			request.setHeader("Content-Type", this.contentType);
 			final List<NameValuePair> p = new ArrayList<NameValuePair>();
 			p.add(new BasicNameValuePair("key", this.getApikey()));
 			p.add(new BasicNameValuePair("blog", this.getApiConsumer()));
@@ -137,5 +145,22 @@ public class Akismet {
 			throw new AkismetException(e);
 		}
 		return rv;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws AkismetException
+	 */
+	public boolean commentCheck(final AkismetComment comment) throws AkismetException {
+		return false;
+	}
+	
+	public boolean submitSpam(final AkismetComment comment) throws AkismetException {
+		return false;
+	}
+	
+	public boolean submitHam(final AkismetComment comment) throws AkismetException {
+		return false;
 	}
 }
