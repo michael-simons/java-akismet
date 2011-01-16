@@ -22,8 +22,8 @@ The httpClient reference must be an instance of org.apache.http.client.HttpClien
 <bean name="akismet" class="ac.simons.akismet.Akismet">
 	<constructor-arg name="httpClient" ref="httpClient" />
 	<!-- The api key from akismet.com --> 
-	<property name="apiKey" ref="YOUR_API_KEY" />
+	<property name="apiKey" value="YOUR_API_KEY" />
 	<!-- The name of your blog or site -->
-	<property name="apiConsumer" ref="YOUR_SITE" />
+	<property name="apiConsumer" value="YOUR_SITE" />
 </bean>
 </code></pre>
