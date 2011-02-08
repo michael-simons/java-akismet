@@ -62,7 +62,7 @@ public class Akismet {
 	private final HttpClient httpClient;
 	
 	private String apiEndpoint = "rest.akismet.com";
-	private String apiVersion = "1.1";
+	private String apiVersion = "1.1";	
 		
 	/** The API key being verified for use with the API */
 	private String apiKey;
@@ -72,6 +72,9 @@ public class Akismet {
 	 * For a blog, site, or wiki this would be the front page. Note: Must be a full URI, including http://. 
 	 */
 	private String apiConsumer;	
+	
+	/** If set to false, all comments are treated as ham and no akismet calls are made */
+	private boolean enabled = true;
 	
 	public Akismet(HttpClient httpClient) {	
 		this.httpClient = httpClient;
@@ -117,6 +120,14 @@ public class Akismet {
 		this.apiConsumer = apiConsumer;
 	}
 	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	private HttpPost newHttpPostRequest(final String uri) {
 		final HttpPost request = new HttpPost(uri);
 		request.setHeader("User-Agent", this.userAgent);
@@ -169,15 +180,17 @@ public class Akismet {
 	public boolean commentCheck(final AkismetComment comment) throws AkismetException {
 		// When in doubt, assume that the comment is ham
 		boolean rv = false;
-		try {
-			final HttpResponse response = this.callAkismet("comment-check", comment);
-			final String body = EntityUtils.toString(response.getEntity());
-			if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
-				rv = body.trim().equals("true");
-			else 
-				logger.warn(String.format("Something bad happened while checking a comment, assuming comment is ham: %s", response.getStatusLine().getReasonPhrase()));
-		} catch(Exception e) {
-			throw new AkismetException(e);
+		if(enabled) {
+			try {
+				final HttpResponse response = this.callAkismet("comment-check", comment);
+				final String body = EntityUtils.toString(response.getEntity());
+				if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
+					rv = body.trim().equals("true");
+				else 
+					logger.warn(String.format("Something bad happened while checking a comment, assuming comment is ham: %s", response.getStatusLine().getReasonPhrase()));
+			} catch(Exception e) {
+				throw new AkismetException(e);
+			}
 		}
 		return rv;
 	}
