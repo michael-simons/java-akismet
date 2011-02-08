@@ -91,7 +91,7 @@ public class AkismetComment implements Serializable {
 	private String commentContent;
 
 	private boolean areRequiredFieldsFilled() {
-		return !(isBlank(this.getUserIp()) || isBlank(this.getUserAgent()));
+		return !(isBlank(this.getUserIp()) || this.getUserAgent() == null);
 	}
 	
 	/**
