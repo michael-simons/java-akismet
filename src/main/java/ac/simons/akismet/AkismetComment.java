@@ -33,7 +33,7 @@
  */
 package ac.simons.akismet;
 
-import static ac.simons.utils.StringUtils.isBlank;
+import static org.apache.commons.lang.StringUtils.isBlank;
 
 import java.io.Serializable;
 import java.util.ArrayList;

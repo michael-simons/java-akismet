@@ -37,7 +37,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.michael-simons</groupId>
 	<artifactId>java-akismet</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<name>java-akismet</name>
 	<description>A java client for akismet.com</description>
 	<build>
@@ -82,10 +82,10 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>eu.michael-simons</groupId>
-			<artifactId>java-utils</artifactId>
-			<version>[0.0.1-SNAPSHOT,)</version>
-		</dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -107,7 +107,7 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.1.1</version>
+			<version>4.1.2</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
@@ -122,7 +122,7 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
-			<version>4.1.1</version>
+			<version>4.1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
