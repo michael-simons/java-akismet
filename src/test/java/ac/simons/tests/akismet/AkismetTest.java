@@ -68,12 +68,7 @@ public class AkismetTest {
 		
 		akismet.setApiKey("123test");		
 		akismet.setApiConsumer("http://test.com");
-		Assert.assertFalse(akismet.verifyKey());
-		
-		akismet.setApiEndpoint("test.com");
-		akismet.setApiKey("123test");		
-		akismet.setApiConsumer("http://test.com");
-		Assert.assertFalse(akismet.verifyKey());
+		Assert.assertFalse(akismet.verifyKey());				
 	}
 	
 	@Test
