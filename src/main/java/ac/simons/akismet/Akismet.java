@@ -188,6 +188,8 @@ public class Akismet {
 					rv = body.trim().equals("true");
 				else 
 					logger.warn(String.format("Something bad happened while checking a comment, assuming comment is ham: %s", response.getStatusLine().getReasonPhrase()));
+				if(logger.isDebugEnabled())
+					logger.debug(String.format("Result for comment %s was: -> %s <-", comment.toString(), (rv ? "spam" : "ham")));
 			} catch(Exception e) {
 				throw new AkismetException(e);
 			}

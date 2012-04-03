@@ -206,5 +206,15 @@ public class AkismetComment implements Serializable {
 
 	public void setCommentContent(String commentContent) {
 		this.commentContent = commentContent;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "AkismetComment [userIp=" + userIp + ", userAgent=" + userAgent
+				+ ", referrer=" + referrer + ", permalink=" + permalink
+				+ ", commentType=" + commentType + ", commentAuthor="
+				+ commentAuthor + ", commentAuthorEmail=" + commentAuthorEmail
+				+ ", commentAuthorUrl=" + commentAuthorUrl
+				+ ", commentContent=" + commentContent + "]";
+	}
 }
