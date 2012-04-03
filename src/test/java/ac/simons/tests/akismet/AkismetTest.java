@@ -97,7 +97,27 @@ public class AkismetTest {
 		comment.setCommentAuthorEmail("viagra-test-123@test.com");
 		comment.setCommentAuthorUrl("http://test.com");
 		comment.setCommentContent("Scharfes Outfit :D");
-		Assert.assertTrue(akismet.commentCheck(comment));		
+		Assert.assertTrue(akismet.commentCheck(comment));
+		
+		comment = new AkismetComment();
+		comment.setUserIp("92.99.136.158");
+		comment.setUserAgent("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.5) Gecko/2008120122 Firefox/3.0.5");
+		comment.setPermalink("http://dailyfratze.de/tina/2009/6/5" );
+		comment.setCommentType("comment");
+		comment.setCommentAuthor("Yesid");
+		comment.setCommentAuthorEmail("");
+		comment.setCommentAuthorUrl("");
+		comment.setCommentContent("hello!This was a really otsitandung blog!I come from itlay, I was fortunate to approach your Topics in baiduAlso I obtain a lot in your topic really thanks very much  i will come later");
+		Assert.assertTrue(akismet.commentCheck(comment));
+		
+		comment = new AkismetComment();
+		comment.setUserIp("77.79.229.62");
+		comment.setUserAgent("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.5) Gecko/2008120122 Firefox/3.0.5");
+		comment.setPermalink("http://dailyfratze.de/app/news/show/250" );
+		comment.setCommentType("comment");
+		comment.setCommentAuthor("Payal");
+		comment.setCommentContent("ett tips kan ju vara att du lc3a4gger ut olika magar ocksc3a5? Nu fc3b6rstc3a5r jag ju visserligen om du inte vill att din blogg ska fc3b6rvandlas till en blogg med massa elidbr pc3a5 random personers kroppar helt, men nc3a4r du c3a4ndc3a5 c3a4r inne pc3a5 spc3a5ret sc3a5 c3a4r ju mc3a5nga osc3a4kra pc3a5 sina magar. Jag vet att jag c3a4r det. Tvc3a5 personer har frc3a5gat mig helt random om jag c3a4r gravid trots att jag inte c3a4r det eftersom min mage putar ut (de kc3a4nner inte ens varandra). Jag c3a4lskar din blogg i vanliga fall, men nu c3a4lskar jag den c3a4nnu mer. Jag bc3b6rjar kc3a4nna lite att mina lc3a5r duger som de c3a4r. Tack Egoina fc3b6r att du bc3a5de inspirerar och bryr dig om personerna som lc3a4ser din blogg! <3");
+		Assert.assertTrue(akismet.commentCheck(comment));
 	}
 	
 	@Test
