@@ -33,8 +33,10 @@
  */
 package ac.simons.akismet;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -53,7 +55,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Akismet {
 	/** The default user agent */
-	private final String userAgent = String.format("Java/%s java-akismet/0.0.5-SNAPSHOT", System.getProperty("java.version"));
+	private final String userAgent;
 	/** The default content type */
 	private final String contentType = "application/x-www-form-urlencoded; charset=utf-8";
 	/** A logger */
@@ -78,6 +80,12 @@ public class Akismet {
 	
 	public Akismet(HttpClient httpClient) {	
 		this.httpClient = httpClient;
+		final Properties version = new Properties();
+		try {
+			version.load(Akismet.class.getResourceAsStream("/ac/simons/akismet/version.properties"));
+		} catch(IOException e) {
+		}
+		this.userAgent = String.format("Java/%s java-akismet/%s", System.getProperty("java.version"), version.getProperty("ac.simons.akismet.version"));
 	}
 
 	public String getUserAgent() {
