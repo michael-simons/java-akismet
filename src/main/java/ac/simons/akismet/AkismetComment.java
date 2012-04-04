@@ -214,7 +214,6 @@ public class AkismetComment implements Serializable {
 				+ ", referrer=" + referrer + ", permalink=" + permalink
 				+ ", commentType=" + commentType + ", commentAuthor="
 				+ commentAuthor + ", commentAuthorEmail=" + commentAuthorEmail
-				+ ", commentAuthorUrl=" + commentAuthorUrl
-				+ ", commentContent=" + commentContent + "]";
+				+ ", commentAuthorUrl=" + commentAuthorUrl + "]";
 	}
 }
