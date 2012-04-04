@@ -86,6 +86,7 @@ public class Akismet {
 		} catch(IOException e) {
 		}
 		this.userAgent = String.format("Java/%s java-akismet/%s", System.getProperty("java.version"), version.getProperty("ac.simons.akismet.version"));
+		logger.info(String.format("Akismet (%s) ready...", this.userAgent));
 	}
 
 	public String getUserAgent() {
