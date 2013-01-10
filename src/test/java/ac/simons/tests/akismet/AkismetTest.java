@@ -33,9 +33,8 @@
  */
 package ac.simons.tests.akismet;
 
-import junit.framework.Assert;
-
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.junit.Assert;
 import org.junit.Test;
 
 import ac.simons.akismet.Akismet;
