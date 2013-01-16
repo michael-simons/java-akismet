@@ -81,17 +81,52 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-enforcer-plugin</artifactId>
+	            <version>1.2</version>
+	            <executions>
+	                <execution>
+	                    <id>enforce</id>
+	                    <configuration>
+	                        <rules>
+	                            <DependencyConvergence/>
+	                        </rules>
+	                    </configuration>
+	                    <goals>
+	                        <goal>enforce</goal>
+	                    </goals>
+	                    <phase>validate</phase>
+	                </execution>
+	            </executions>
+        	</plugin>
 		</plugins>
-		<resources>
-                        <resource>
-                                <directory>src/main/resources</directory>
-                        	<filtering>false</filtering>
-                	</resource>
-                	<resource>
-                                <directory>src/main/filtered_resources</directory>
-                        	<filtering>true</filtering>
-                	</resource>
-		</resources>
+		<pluginManagement>
+	  		<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-enforcer-plugin</artifactId>
+										<versionRange>[1.2,)</versionRange>
+										<goals>
+											<goal>enforce</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action><ignore /></action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 	<dependencies>
 		<dependency>
