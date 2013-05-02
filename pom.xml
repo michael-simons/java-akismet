@@ -41,7 +41,7 @@
 	<name>java-akismet</name>
 	<description>A java client for akismet.com</description>
 	<scm>		
-		<connection>scm:git:file://${basedir}</connection>
+		<connection>scm:git:ssh://msimons@dagobah.michael-simons.eu:2109/~/repos/java-akismet.git</connection>
 	</scm>
 	<build>
 		<plugins>
