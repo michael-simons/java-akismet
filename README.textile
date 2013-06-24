@@ -12,6 +12,13 @@ Run maven with the following argument added:
 mvn -DargLine="-DakismetApiKey=YOUR_API_KEY -DakismetConsumer=YOUR_SITE" install
 </pre>
 
+It get's even more complicated using the release plugin:
+
+<pre>
+mvn release:prepare -Darguments="-DargLine='-DakismetApiKey=YOUR_API_KEY -DakismetConsumer=YOUR_SITE'" 
+mvn release:perform -Darguments="-DargLine='-DakismetApiKey=YOUR_API_KEY -DakismetConsumer=YOUR_SITE'" 
+</pre>
+
 h2. Usage
 
 h3. In a Spring 3.x application
