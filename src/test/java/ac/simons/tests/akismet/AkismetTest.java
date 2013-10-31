@@ -33,7 +33,7 @@
  */
 package ac.simons.tests.akismet;
 
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -59,7 +59,7 @@ public class AkismetTest {
 	
 	@Test
 	public void verify() throws AkismetException {
-		final Akismet akismet = new Akismet(new DefaultHttpClient());		
+		final Akismet akismet = new Akismet(HttpClients.createDefault());		
 		
 		akismet.setApiKey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);		
@@ -72,7 +72,7 @@ public class AkismetTest {
 	
 	@Test
 	public void checkComment() throws AkismetException {
-		final Akismet akismet = new Akismet(new DefaultHttpClient());		
+		final Akismet akismet = new Akismet(HttpClients.createDefault());		
 		akismet.setApiKey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);
 		
@@ -121,7 +121,7 @@ public class AkismetTest {
 	
 	@Test
 	public void submitSpam() throws AkismetException {
-		final Akismet akismet = new Akismet(new DefaultHttpClient());		
+		final Akismet akismet = new Akismet(HttpClients.createDefault());		
 		akismet.setApiKey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);
 		
@@ -139,7 +139,7 @@ public class AkismetTest {
 	
 	@Test
 	public void submitHam() throws AkismetException {
-		final Akismet akismet = new Akismet(new DefaultHttpClient());		
+		final Akismet akismet = new Akismet(HttpClients.createDefault());		
 		akismet.setApiKey(validApiKey);		
 		akismet.setApiConsumer(validApiConsumer);
 		
