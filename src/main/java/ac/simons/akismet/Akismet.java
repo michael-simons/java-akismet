@@ -159,7 +159,7 @@ public class Akismet {
 		boolean rv = false;
 		try {
 			final HttpPost request = newHttpPostRequest(String.format("http://%s/%s/verify-key", this.getApiEndpoint(), this.getApiVersion()));			
-			final List<NameValuePair> p = new ArrayList<NameValuePair>();
+			final List<NameValuePair> p = new ArrayList<>();
 			p.add(new BasicNameValuePair("key", this.getApiKey()));
 			p.add(new BasicNameValuePair("blog", this.getApiConsumer()));			
 			request.setEntity(new UrlEncodedFormEntity(p, "UTF-8"));

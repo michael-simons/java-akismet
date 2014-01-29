@@ -100,7 +100,7 @@ public class AkismetComment implements Serializable {
 	 * @throws Exception
 	 */
 	public UrlEncodedFormEntity toEntity(final String apiConsumer) throws Exception {
-		final List<NameValuePair> p = new ArrayList<NameValuePair>();
+		final List<NameValuePair> p = new ArrayList<>();
 		
 		if(!areRequiredFieldsFilled())
 			throw new AkismetException("The fields blog, userIp and userAgent are required!");
