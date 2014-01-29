@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.michael-simons</groupId>
 	<artifactId>java-akismet</artifactId>
-	<version>0.0.20-SNAPSHOT</version>
+	<version>0.1.1</version>
 	<name>java-akismet</name>
 	<description>A java client for akismet.com</description>
 	<build>
