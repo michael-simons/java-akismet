@@ -1,9 +1,9 @@
-/**
+/*
  * Created by Michael Simons, michael-simons.eu
  * and released under The BSD License
  * http://www.opensource.org/licenses/bsd-license.php
  *
- * Copyright (c) 2011, Michael Simons
+ * Copyright (c) 2011-2016, Michael Simons
  * All rights reserved.
  *
  * Redistribution  and  use  in  source   and  binary  forms,  with  or   without
@@ -96,8 +96,9 @@ public class AkismetComment implements Serializable {
 	
 	/**
 	 * Converts this comment to a HttpEntity to use in a akismet call
-	 * @return
-	 * @throws Exception
+	 * @param apiConsumer The api key for this instance
+	 * @return A form entity ready for submitting to Akismet server
+	 * @throws Exception all exceptions from Http client are retrown, also when fields are not filled
 	 */
 	public UrlEncodedFormEntity toEntity(final String apiConsumer) throws Exception {
 		final List<NameValuePair> p = new ArrayList<>();

@@ -1,9 +1,9 @@
-/**
+/*
  * Created by Michael Simons, michael-simons.eu
  * and released under The BSD License
  * http://www.opensource.org/licenses/bsd-license.php
  *
- * Copyright (c) 2011, Michael Simons
+ * Copyright (c) 2011-2016, Michael Simons
  * All rights reserved.
  *
  * Redistribution  and  use  in  source   and  binary  forms,  with  or   without
@@ -153,7 +153,7 @@ public class Akismet {
 	/**
 	 * The key verification call should be made before beginning to use the service. It requires two variables, key and blog.
 	 * @return True if the key is valid. This is the one call that can be made without the API key subdomain.
-	 * @throws AkismetException
+	 * @throws AkismetException All exceptions and "invalid" responses are thrown
 	 */
 	public boolean verifyKey() throws AkismetException {
 		boolean rv = false;
@@ -183,8 +183,9 @@ public class Akismet {
 	 * exclude certain elements.<br>
 	 * I would recommend erring on the side of too much data, as everything is used as 
 	 * part of the Akismet signature.
+	 * @param comment The comment to check for spam
 	 * @return True, if the comment is spam, false otherwise
-	 * @throws AkismetException
+	 * @throws AkismetException All exceptions and "invalid" responses are thrown
 	 */
 	public boolean commentCheck(final AkismetComment comment) throws AkismetException {
 		// When in doubt, assume that the comment is ham
@@ -209,9 +210,9 @@ public class Akismet {
 	/**
 	 * This call is for submitting comments that weren't marked 
 	 * as spam but should have been.
-	 * @param comment
+	 * @param comment The comment to be checked for spam
 	 * @return True if the spam was successfully submitted.
-	 * @throws AkismetException
+	 * @throws AkismetException All exceptions and "invalid" responses are thrown
 	 */
 	public boolean submitSpam(final AkismetComment comment) throws AkismetException {
 		boolean rv = false;
@@ -233,9 +234,9 @@ public class Akismet {
 	/**
 	 * This call is intended for the marking of false positives, 
 	 * things that were incorrectly marked as spam.
-	 * @param comment
+	 * @param comment The comment to be checked for spam
 	 * @return True if the ham was successfully submitted.
-	 * @throws AkismetException
+	 * @throws AkismetException All exceptions and "invalid" responses are thrown
 	 */
 	public boolean submitHam(final AkismetComment comment) throws AkismetException {
 		boolean rv = false;
