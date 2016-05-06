@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<prerequisites>
+		<maven>3.3</maven>
+	</prerequisites>
+
 	<groupId>eu.michael-simons</groupId>
 	<artifactId>java-akismet</artifactId>
 	<version>0.1.10-SNAPSHOT</version>
@@ -30,7 +36,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>				
+				<version>2.1.2</version>
 				<executions>
 					<execution>
 						<goals>
@@ -48,30 +54,31 @@
 				</configuration>
 			</plugin>
 			<plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-enforcer-plugin</artifactId>
-	            <version>1.2</version>
-	            <executions>
-	                <execution>
-	                    <id>enforce</id>
-	                    <configuration>
-	                        <rules>
-	                            <DependencyConvergence />	                           
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>enforce</id>
+						<configuration>
+							<rules>
+								<DependencyConvergence />
 								<requireMavenVersion>
 									<version>(,2.1.0),(2.1.0,2.2.0),(2.2.0,)</version>
-									<message>Maven 2.1.0 and 2.2.0 produce incorrect GPG signatures and checksums respectively.</message>
-								</requireMavenVersion>							
-	                        </rules>
-	                    </configuration>
-	                    <goals>
-	                        <goal>enforce</goal>
-	                    </goals>
-	                    <phase>validate</phase>
-	                </execution>
-	            </executions>
-        	</plugin>
-        	<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
+									<message>Maven 2.1.0 and 2.2.0 produce incorrect GPG signatures
+										and checksums respectively.</message>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<phase>validate</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
 				<version>1.4</version>
 				<executions>
@@ -92,34 +99,8 @@
 					<tagNameFormat>@{project.version}</tagNameFormat>
 					<releaseProfiles>release</releaseProfiles>
 				</configuration>
-			</plugin>			
-		</plugins>
-		<pluginManagement>
-	  		<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-enforcer-plugin</artifactId>
-										<versionRange>[1.2,)</versionRange>
-										<goals>
-											<goal>enforce</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action><ignore /></action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+			</plugin>
+		</plugins>		
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -134,9 +115,9 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
-  			<artifactId>commons-lang3</artifactId>
-  			<version>3.4</version>
-		</dependency>		
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -167,7 +148,7 @@
 				<exclusion>
 					<groupId>org.apache.httpcomponents</groupId>
 					<artifactId>httpcore</artifactId>
-				</exclusion>		
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -199,14 +180,14 @@
 		<connection>scm:git:git@github.com:michael-simons/java-akismet.git</connection>
 		<developerConnection>scm:git:git@github.com:michael-simons/java-akismet.git</developerConnection>
 	</scm>
-	
+
 	<licenses>
 		<license>
 			<name>Revised BSD License</name>
 			<url>http://opensource.org/licenses/BSD-3-Clause</url>
 		</license>
 	</licenses>
-	
+
 	<repositories>
 		<repository>
 			<id>sonatype-nexus-snapshots</id>
@@ -220,7 +201,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
+
 	<distributionManagement>
 		<snapshotRepository>
 			<id>sonatype-nexus-snapshots</id>
@@ -233,8 +214,8 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	
-	<properties>	
+
+	<properties>
 		<sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
-	</properties>		
+	</properties>
 </project>
