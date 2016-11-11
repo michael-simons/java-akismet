@@ -8,7 +8,7 @@
 
 	<groupId>eu.michael-simons</groupId>
 	<artifactId>java-akismet</artifactId>
-	<version>0.2.3</version>
+	<version>0.2.4-SNAPSHOT</version>
 	<name>java-akismet</name>
 	<description>A java client for akismet.com</description>
 	<build>
@@ -196,7 +196,7 @@
 		<url>https://github.com/michael-simons/java-akismet</url>
 		<connection>scm:git:git@github.com:michael-simons/java-akismet.git</connection>
 		<developerConnection>scm:git:git@github.com:michael-simons/java-akismet.git</developerConnection>
-		<tag>0.2.3</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<licenses>
