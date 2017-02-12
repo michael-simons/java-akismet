@@ -1,6 +1,5 @@
-env:
-  global:
-    - MAVEN_OPTS=-Darguments="-DargLine='-DakismetApiKey=xxxx -DakismetConsumer=http://dailyfratze.de'"
+before_script:
+  - echo MAVEN_OPTS=-Darguments=\"-DargLine=\'-DakismetApiKey=$AKISMET_KEY -DakismetConsumer=http://dailyfratze.de\'\" > ~/.mavenrc
 language: java
 jdk:
   - oraclejdk8
