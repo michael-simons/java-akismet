@@ -217,6 +217,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<versions.slf4j>1.7.21</versions.slf4j>
+		<versions.slf4j>1.7.22</versions.slf4j>
 	</properties>
 </project>
