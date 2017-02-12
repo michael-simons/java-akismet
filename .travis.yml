@@ -1,0 +1,6 @@
+env:
+  global:
+    - MAVEN_OPTS=-Darguments="-DargLine='-DakismetApiKey=xxxx -DakismetConsumer=http://dailyfratze.de'"
+language: java
+jdk:
+  - oraclejdk8
