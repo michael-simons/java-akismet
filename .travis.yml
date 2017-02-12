@@ -1,5 +1,5 @@
 before_script:
-- echo MAVEN_OPTS=-Darguments=\"-DargLine=\'-DakismetApiKey=$AKISMET_KEY -DakismetConsumer=http://dailyfratze.de\'\"
+- echo "MAVEN_OPTS='-Darguments=\"-DargLine=\'-DakismetApiKey=$AKISMET_KEY -DakismetConsumer=http://dailyfratze.de\'\"'"
   > ~/.mavenrc
 language: java
 jdk:
