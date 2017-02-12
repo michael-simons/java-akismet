@@ -1,8 +1,6 @@
-before_script:
-- echo "MAVEN_OPTS='-Darguments=\"-DargLine=\'-DakismetApiKey=$AKISMET_KEY -DakismetConsumer=http://dailyfratze.de\'\"'"
-  > ~/.mavenrc
 language: java
 jdk:
 - oraclejdk8
 global:
   secure: h1OdhzvBBrb3ZLH4JZrCdA1AhkbOeOTCSpWx+xCYKvxekcac4uuxreC1W7MVCxbAIQ04tKJT84+/xovtptkvwqVefVCAB83/d899Wtx/qxMksJbo4vmrK9aAxN3yfLtcj4T+MIOKqoWIGvs+goIpXXnDeBjapabFD+MBt3+BEZy3mX5Z5oklLn5VTSZ0fs6BgCDo/dnE0Gv28e23CFTCOv2iCM8X61XFpXMjSV84XtCwvpsMg+G9XcKf08zJkqsbzs6zX9SZjHassT7LLXDQy30ENUtKuVUhVuDa8PPTO8dvG0qbP3ODPE+DNrNTdUQFlNa4suBuTiEK8UGSvKcFKBFd/blhcRgUhYpJW1KX81ZFkvuxlI6WCnmUP5O9u4P2bScmAIXhoRrsb2qKCD86V1gHL4IHTWYo2WmyTiNc5qmb+DUUkNIIFxt3pmnFkaeF9ygK5W9BNKp/TlUrZ5zifprVl2sx3jUGK1yNzlbGNxoNFM+M2Lx6eSvfbF7+7xrRRekd6lT3arimHXb4nHMcXGB12ybYvmVddV/ySGPxOJUFgpqxKjFnDFzXSjJmj62uox+ETCKGLL416bjMccQHhXUaqybjhnyGHMI3mjy5sIIazVUCG+Hzv1uB7Rm0c+MwuqL67eYv/AZP73XZZe2hTSFJUl2jYxCiNvoHqj6ohvQ=
+script: mvn -DargLine="-DakismetApiKey=$AKISMET_KEY -DakismetConsumer=http://dailyfratze.de" test -B
